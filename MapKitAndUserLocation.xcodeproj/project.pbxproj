@@ -7,20 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3793C4F4274C88F600E7FB43 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3793C4F3274C88F600E7FB43 /* FloatingPanel */; };
+		3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */; };
+		3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */; };
+		3793C4FF274D541F00E7FB43 /* AnnotationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */; };
+		3793C500274D541F00E7FB43 /* AnnotationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3793C4FE274D541F00E7FB43 /* AnnotationTableViewCell.xib */; };
 		37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37A48EE62745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld */; };
 		37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EA274589B000B466DA /* AppDelegate.swift */; };
 		37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EC274589B000B466DA /* SceneDelegate.swift */; };
-		37B9C0EF274589B000B466DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EE274589B000B466DA /* ViewController.swift */; };
+		37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EE274589B000B466DA /* MapViewController.swift */; };
 		37B9C0F4274589B100B466DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B9C0F3274589B100B466DA /* Assets.xcassets */; };
 		37B9C0F7274589B100B466DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B9C0F5274589B100B466DA /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsViewController.swift; sourceTree = "<group>"; };
+		3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
+		3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTableViewCell.swift; sourceTree = "<group>"; };
+		3793C4FE274D541F00E7FB43 /* AnnotationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationTableViewCell.xib; sourceTree = "<group>"; };
 		37A48EE72745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MapKitAndUserLocation.xcdatamodel; sourceTree = "<group>"; };
 		37B9C0E7274589B000B466DA /* MapKitAndUserLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAndUserLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B9C0EA274589B000B466DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37B9C0EC274589B000B466DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		37B9C0EE274589B000B466DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		37B9C0EE274589B000B466DA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		37B9C0F3274589B100B466DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37B9C0F6274589B100B466DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37B9C0F8274589B100B466DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,12 +40,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3793C4F4274C88F600E7FB43 /* FloatingPanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3793C4F5274C8BF400E7FB43 /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				37B9C0EE274589B000B466DA /* MapViewController.swift */,
+			);
+			path = MapScreen;
+			sourceTree = "<group>";
+		};
+		3793C4F6274C8C1800E7FB43 /* AnnotationsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */,
+				3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */,
+				3793C4FE274D541F00E7FB43 /* AnnotationTableViewCell.xib */,
+			);
+			path = AnnotationsScreen;
+			sourceTree = "<group>";
+		};
+		3793C4FA274D3D2B00E7FB43 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		37B9C0DE274589B000B466DA = {
 			isa = PBXGroup;
 			children = (
@@ -56,9 +92,11 @@
 		37B9C0E9274589B000B466DA /* MapKitAndUserLocation */ = {
 			isa = PBXGroup;
 			children = (
+				3793C4FA274D3D2B00E7FB43 /* Extensions */,
+				3793C4F6274C8C1800E7FB43 /* AnnotationsScreen */,
+				3793C4F5274C8BF400E7FB43 /* MapScreen */,
 				37B9C0EA274589B000B466DA /* AppDelegate.swift */,
 				37B9C0EC274589B000B466DA /* SceneDelegate.swift */,
-				37B9C0EE274589B000B466DA /* ViewController.swift */,
 				37B9C0F3274589B100B466DA /* Assets.xcassets */,
 				37B9C0F5274589B100B466DA /* LaunchScreen.storyboard */,
 				37B9C0F8274589B100B466DA /* Info.plist */,
@@ -83,6 +121,9 @@
 			dependencies = (
 			);
 			name = MapKitAndUserLocation;
+			packageProductDependencies = (
+				3793C4F3274C88F600E7FB43 /* FloatingPanel */,
+			);
 			productName = MapKitAndUserLocation;
 			productReference = 37B9C0E7274589B000B466DA /* MapKitAndUserLocation.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +152,9 @@
 				Base,
 			);
 			mainGroup = 37B9C0DE274589B000B466DA;
+			packageReferences = (
+				3793C4F2274C88F600E7FB43 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+			);
 			productRefGroup = 37B9C0E8274589B000B466DA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37B9C0F7274589B100B466DA /* LaunchScreen.storyboard in Resources */,
+				3793C500274D541F00E7FB43 /* AnnotationTableViewCell.xib in Resources */,
 				37B9C0F4274589B100B466DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,9 +182,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B9C0EF274589B000B466DA /* ViewController.swift in Sources */,
+				3793C4FF274D541F00E7FB43 /* AnnotationTableViewCell.swift in Sources */,
+				3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */,
+				37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */,
 				37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */,
 				37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */,
+				3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */,
 				37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +398,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3793C4F2274C88F600E7FB43 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scenee/FloatingPanel";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3793C4F3274C88F600E7FB43 /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3793C4F2274C88F600E7FB43 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		37A48EE62745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld */ = {

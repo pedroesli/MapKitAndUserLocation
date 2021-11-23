@@ -7,8 +7,9 @@
 
 import UIKit
 import MapKit
+import FloatingPanel
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 
     var mapView: MKMapView = {
         let map = MKMapView()
@@ -19,13 +20,14 @@ class ViewController: UIViewController {
         return map
     }()
     
+    var floatingPanel = FloatingPanelController()
+    
     let locationManager = CLLocationManager()
     
     var lastSelectedPin: MKPointAnnotation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
         setupView()
         setupMap()
         checkLocationServices()
@@ -40,6 +42,12 @@ class ViewController: UIViewController {
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        let contentVC = AnnotationsViewController()
+        floatingPanel.set(contentViewController: contentVC)
+        floatingPanel.track(scrollView: contentVC.tableView)
+        floatingPanel.addPanel(toParent: self)
+        floatingPanel.surfaceView.appearance.backgroundColor = .background
     }
     
     func setupMap(){
@@ -86,7 +94,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: CLLocationManagerDelegate{
+extension MapViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        guard let location = locations.last else { return }
 //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
