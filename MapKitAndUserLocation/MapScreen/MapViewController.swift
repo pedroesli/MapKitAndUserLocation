@@ -47,8 +47,9 @@ class MapViewController: UIViewController {
         let contentVC = AnnotationsViewController()
         floatingPanel.set(contentViewController: contentVC)
         floatingPanel.track(scrollView: contentVC.tableView)
-        floatingPanel.addPanel(toParent: self)
         floatingPanel.surfaceView.appearance.backgroundColor = .background
+        floatingPanel.surfaceView.appearance.cornerRadius = 10.0
+        floatingPanel.addPanel(toParent: self)
     }
     
     func setupMap(){
@@ -93,7 +94,6 @@ class MapViewController: UIViewController {
         mapView.addAnnotation(pin)
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
-        selectionGenerator.prepare()
         longGesture.isEnabled = true
     }
 }

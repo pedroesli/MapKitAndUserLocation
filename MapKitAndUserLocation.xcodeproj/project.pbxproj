@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865A274DD8F10043196F /* DroppedPinViewController.swift */; };
 		3793C4F4274C88F600E7FB43 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3793C4F3274C88F600E7FB43 /* FloatingPanel */; };
 		3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */; };
 		3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		377E865A274DD8F10043196F /* DroppedPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinViewController.swift; sourceTree = "<group>"; };
 		3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsViewController.swift; sourceTree = "<group>"; };
 		3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTableViewCell.swift; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 			children = (
 			);
 			path = Essentials;
+			sourceTree = "<group>";
+		};
+		377E8659274DD8580043196F /* DroppedPinPinScreen */ = {
+			isa = PBXGroup;
+			children = (
+				377E865A274DD8F10043196F /* DroppedPinViewController.swift */,
+			);
+			path = DroppedPinPinScreen;
 			sourceTree = "<group>";
 		};
 		3793C4F5274C8BF400E7FB43 /* MapScreen */ = {
@@ -99,6 +109,7 @@
 		37B9C0E9274589B000B466DA /* MapKitAndUserLocation */ = {
 			isa = PBXGroup;
 			children = (
+				377E8659274DD8580043196F /* DroppedPinPinScreen */,
 				377E8656274DD1580043196F /* Essentials */,
 				3793C4FA274D3D2B00E7FB43 /* Extensions */,
 				3793C4F6274C8C1800E7FB43 /* AnnotationsScreen */,
@@ -195,6 +206,7 @@
 				37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */,
 				37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */,
 				37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */,
+				377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */,
 				3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */,
 				37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */,
 			);
