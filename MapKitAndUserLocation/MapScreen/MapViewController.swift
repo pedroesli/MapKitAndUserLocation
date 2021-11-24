@@ -20,7 +20,20 @@ class MapViewController: UIViewController {
         return map
     }()
     
-    var floatingPanel = FloatingPanelController()
+    var floatingPanel: FloatingPanelController = {
+        let fp = FloatingPanelController()
+        fp.surfaceView.appearance.backgroundColor = .background
+        fp.surfaceView.appearance.cornerRadius = 10.0
+        return fp
+    }()
+    
+    var droppedPinFloatingPanel: FloatingPanelController = {
+        let fp = FloatingPanelController()
+        fp.surfaceView.appearance.backgroundColor = .background
+        fp.surfaceView.appearance.cornerRadius = 10.0
+        return fp
+    }()
+    
     var lastSelectedPin: MKPointAnnotation?
     
     let locationManager = CLLocationManager()
@@ -47,9 +60,10 @@ class MapViewController: UIViewController {
         let contentVC = AnnotationsViewController()
         floatingPanel.set(contentViewController: contentVC)
         floatingPanel.track(scrollView: contentVC.tableView)
-        floatingPanel.surfaceView.appearance.backgroundColor = .background
-        floatingPanel.surfaceView.appearance.cornerRadius = 10.0
         floatingPanel.addPanel(toParent: self)
+        
+        droppedPinFloatingPanel.addPanel(toParent: self)
+        droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
     }
     
     func setupMap(){
@@ -94,6 +108,13 @@ class MapViewController: UIViewController {
         mapView.addAnnotation(pin)
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
+        if droppedPinFloatingPanel.state == .hidden {
+            let contentVC = DroppedPinViewController()
+            droppedPinFloatingPanel.set(contentViewController: contentVC)
+            droppedPinFloatingPanel.move(to: .half, animated: true) {
+                self.floatingPanel.move(to: .hidden, animated: false, completion: nil)
+            }
+        }
         longGesture.isEnabled = true
     }
 }
