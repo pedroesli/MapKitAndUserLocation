@@ -21,16 +21,17 @@ class MapViewController: UIViewController {
     }()
     
     var floatingPanel = FloatingPanelController()
+    var lastSelectedPin: MKPointAnnotation?
     
     let locationManager = CLLocationManager()
-    
-    var lastSelectedPin: MKPointAnnotation?
+    let selectionGenerator = UIImpactFeedbackGenerator(style: .light)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupMap()
         checkLocationServices()
+        selectionGenerator.prepare()
     }
 
     func setupView(){
@@ -78,6 +79,8 @@ class MapViewController: UIViewController {
     
     @objc func didLongPress(longGesture: UILongPressGestureRecognizer){
         longGesture.isEnabled = false
+        selectionGenerator.impactOccurred()
+        
         let touchPoint = longGesture.location(in: mapView)
         let mapCoord = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
@@ -90,6 +93,7 @@ class MapViewController: UIViewController {
         mapView.addAnnotation(pin)
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
+        selectionGenerator.prepare()
         longGesture.isEnabled = true
     }
 }

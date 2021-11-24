@@ -9,15 +9,22 @@ import UIKit
 
 class AnnotationTableViewCell: UITableViewCell {
 
+    static let identifier = "AnnotationCell"
+    
+    @IBOutlet weak var primaryLabel: UILabel!
+    @IBOutlet weak var secondaryLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundColor = .backgroundSecondary
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    func setCell(primaryText: String, secondaryText: String){
+        primaryLabel.text = primaryText
+        secondaryLabel.attributedText = NSAttributedString(string: secondaryText, attributes: [NSAttributedString.Key.kern: 0.21])
+    }
 }

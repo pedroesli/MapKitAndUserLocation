@@ -47,6 +47,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		377E8656274DD1580043196F /* Essentials */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Essentials;
+			sourceTree = "<group>";
+		};
 		3793C4F5274C8BF400E7FB43 /* MapScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +99,7 @@
 		37B9C0E9274589B000B466DA /* MapKitAndUserLocation */ = {
 			isa = PBXGroup;
 			children = (
+				377E8656274DD1580043196F /* Essentials */,
 				3793C4FA274D3D2B00E7FB43 /* Extensions */,
 				3793C4F6274C8C1800E7FB43 /* AnnotationsScreen */,
 				3793C4F5274C8BF400E7FB43 /* MapScreen */,

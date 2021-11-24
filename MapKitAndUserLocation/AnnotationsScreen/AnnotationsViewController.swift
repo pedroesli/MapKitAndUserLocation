@@ -22,17 +22,17 @@ class AnnotationsViewController: UIViewController{
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
-        tableView.separatorColor = .white
+        tableView.separatorColor = .gray
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AnnotationCell")
+        tableView.register(UINib(nibName: "AnnotationTableViewCell", bundle: nil), forCellReuseIdentifier: AnnotationTableViewCell.identifier)
     }
 }
 
@@ -43,10 +43,8 @@ extension AnnotationsViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AnnotationCell", for: indexPath)
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = "Hey \(indexPath.row)"
-        cell.backgroundColor = .backgroundSecondary
+        let cell = tableView.dequeueReusableCell(withIdentifier: AnnotationTableViewCell.identifier, for: indexPath) as! AnnotationTableViewCell
+        cell.setCell(primaryText: "Hey \(indexPath.row)", secondaryText: "Sup")
         return cell
     }
 }
