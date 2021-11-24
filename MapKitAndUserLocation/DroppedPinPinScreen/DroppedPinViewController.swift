@@ -27,7 +27,7 @@ class DroppedPinViewController: UIViewController {
         return button
     }()
     
-    //var delegate: ??
+    var delegate: DroppedPinDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,5 +46,11 @@ class DroppedPinViewController: UIViewController {
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
+        
+        closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc func closeButtonPressed(){
+        delegate?.droppedPinCloseButtonPressed()
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865A274DD8F10043196F /* DroppedPinViewController.swift */; };
+		377E865D274DECE00043196F /* DroppedPinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865C274DECE00043196F /* DroppedPinDelegate.swift */; };
 		3793C4F4274C88F600E7FB43 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3793C4F3274C88F600E7FB43 /* FloatingPanel */; };
 		3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */; };
 		3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		377E865A274DD8F10043196F /* DroppedPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinViewController.swift; sourceTree = "<group>"; };
+		377E865C274DECE00043196F /* DroppedPinDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinDelegate.swift; sourceTree = "<group>"; };
 		3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsViewController.swift; sourceTree = "<group>"; };
 		3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTableViewCell.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				377E865A274DD8F10043196F /* DroppedPinViewController.swift */,
+				377E865C274DECE00043196F /* DroppedPinDelegate.swift */,
 			);
 			path = DroppedPinPinScreen;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			files = (
 				3793C4FF274D541F00E7FB43 /* AnnotationTableViewCell.swift in Sources */,
 				3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */,
+				377E865D274DECE00043196F /* DroppedPinDelegate.swift in Sources */,
 				37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */,
 				37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */,
 				37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */,

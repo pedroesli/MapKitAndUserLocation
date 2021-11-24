@@ -62,6 +62,9 @@ class MapViewController: UIViewController {
         floatingPanel.track(scrollView: contentVC.tableView)
         floatingPanel.addPanel(toParent: self)
         
+        let droppedPinContentVC = DroppedPinViewController()
+        droppedPinContentVC.delegate = self
+        droppedPinFloatingPanel.set(contentViewController: droppedPinContentVC)
         droppedPinFloatingPanel.addPanel(toParent: self)
         droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
     }
@@ -109,13 +112,20 @@ class MapViewController: UIViewController {
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
         if droppedPinFloatingPanel.state == .hidden {
-            let contentVC = DroppedPinViewController()
-            droppedPinFloatingPanel.set(contentViewController: contentVC)
+            
             droppedPinFloatingPanel.move(to: .half, animated: true) {
                 self.floatingPanel.move(to: .hidden, animated: false, completion: nil)
             }
         }
         longGesture.isEnabled = true
+    }
+}
+
+extension MapViewController: DroppedPinDelegate {
+    func droppedPinCloseButtonPressed() {
+        floatingPanel.move(to: droppedPinFloatingPanel.state, animated: false) {
+            self.droppedPinFloatingPanel.move(to: .hidden, animated: true, completion: nil)
+        }
     }
 }
 
@@ -148,4 +158,5 @@ extension MapViewController: CLLocationManagerDelegate{
         }
     }
 }
+
 
