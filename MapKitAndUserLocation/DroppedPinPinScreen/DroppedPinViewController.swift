@@ -65,27 +65,7 @@ class DroppedPinViewController: UIViewController {
         return view
     }()
     
-    var addressTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.attributedText = NSAttributedString(string: "Address", attributes: [NSAttributedString.Key.kern: -0.07])
-        label.textColor = .secondaryLabel
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var addressLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17)
-        let attributes = [
-            NSAttributedString.Key.kern: -0.51,
-            NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle(lineSpacing: 2)
-        ] as [NSAttributedString.Key : Any]
-        label.attributedText = NSAttributedString(string: "Chácara 325\nTaguatinga\nBrasília - DF\n72444\nBrasil", attributes: attributes)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    var addressDetailLabel = PEDetailLabel(titleText: "Address", bodyText: "Chácara 325\nTaguatinga\nBrasília - DF\n72444\nBrasil")
     
     var lineView: UIView = {
         let view = UIView()
@@ -94,22 +74,7 @@ class DroppedPinViewController: UIViewController {
         return view
     }()
     
-    var coordinatesTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.attributedText = NSAttributedString(string: "Coordinates", attributes: [NSAttributedString.Key.kern: -0.07])
-        label.textColor = .secondaryLabel
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var coordinatesLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17)
-        label.attributedText = NSAttributedString(string: "15,40054° S, 48,04333° O", attributes: [NSAttributedString.Key.kern: -0.51])
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    var coordinatesDetailLabel = PEDetailLabel(titleText: "Coordinates", bodyText: "15,40054° S, 48,04333° O")
     
     var delegate: DroppedPinDelegate?
     
@@ -127,11 +92,9 @@ class DroppedPinViewController: UIViewController {
         contentView.addSubview(distanceLabel)
         contentView.addSubview(detailLabel)
         contentView.addSubview(detailContentView)
-        detailContentView.addSubview(addressTitleLabel)
-        detailContentView.addSubview(addressLabel)
+        detailContentView.addSubview(addressDetailLabel)
         detailContentView.addSubview(lineView)
-        detailContentView.addSubview(coordinatesTitleLabel)
-        detailContentView.addSubview(coordinatesLabel)
+        detailContentView.addSubview(coordinatesDetailLabel)
         
         NSLayoutConstraint.activate([
             //Title Label
@@ -164,28 +127,20 @@ class DroppedPinViewController: UIViewController {
             detailContentView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 10),
             detailContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             detailContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            detailContentView.bottomAnchor.constraint(equalTo: coordinatesLabel.bottomAnchor, constant: 15),
-            //Address Title Label
-            addressTitleLabel.topAnchor.constraint(equalTo: detailContentView.topAnchor, constant: 15),
-            addressTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
-            addressTitleLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16),
-            //Address Label
-            addressLabel.topAnchor.constraint(equalTo: addressTitleLabel.bottomAnchor, constant: 2),
-            addressLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
-            addressLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16),
+            detailContentView.bottomAnchor.constraint(equalTo: coordinatesDetailLabel.bottomAnchor, constant: 15),
+            //Address Detail Label
+            addressDetailLabel.topAnchor.constraint(equalTo: detailContentView.topAnchor, constant: 15),
+            addressDetailLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
+            addressDetailLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16),
             //Line View
-            lineView.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 15),
+            lineView.topAnchor.constraint(equalTo: addressDetailLabel.bottomAnchor, constant: 15),
             lineView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
             lineView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.5),
-            //Coordinates Title Label
-            coordinatesTitleLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 15),
-            coordinatesTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
-            coordinatesTitleLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16),
-            //Coordinates Label
-            coordinatesLabel.topAnchor.constraint(equalTo: coordinatesTitleLabel.bottomAnchor, constant: 2),
-            coordinatesLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
-            coordinatesLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16)
+            //Coordinates Detail Label
+            coordinatesDetailLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 15),
+            coordinatesDetailLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
+            coordinatesDetailLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16)
         ])
         
         //scrollView.contentSize = CGSize(width: view.frame.width, height: 1000)
