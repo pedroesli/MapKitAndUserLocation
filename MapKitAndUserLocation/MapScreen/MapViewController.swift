@@ -65,6 +65,7 @@ class MapViewController: UIViewController {
         let droppedPinContentVC = DroppedPinViewController()
         droppedPinContentVC.delegate = self
         droppedPinFloatingPanel.set(contentViewController: droppedPinContentVC)
+        droppedPinFloatingPanel.track(scrollView: droppedPinContentVC.scrollView)
         droppedPinFloatingPanel.addPanel(toParent: self)
         droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
     }

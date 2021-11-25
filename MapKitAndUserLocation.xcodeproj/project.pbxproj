@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3776FF7B274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776FF7A274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift */; };
 		377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865A274DD8F10043196F /* DroppedPinViewController.swift */; };
 		377E865D274DECE00043196F /* DroppedPinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865C274DECE00043196F /* DroppedPinDelegate.swift */; };
 		3793C4F4274C88F600E7FB43 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3793C4F3274C88F600E7FB43 /* FloatingPanel */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3776FF7A274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableParagraphStyle+CustomInitiator.swift"; sourceTree = "<group>"; };
 		377E865A274DD8F10043196F /* DroppedPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinViewController.swift; sourceTree = "<group>"; };
 		377E865C274DECE00043196F /* DroppedPinDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinDelegate.swift; sourceTree = "<group>"; };
 		3793C4F8274C8C6900E7FB43 /* AnnotationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				3793C4FB274D3D9200E7FB43 /* UIColor+CustomColors.swift */,
+				3776FF7A274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */,
 				3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */,
 				37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */,
+				3776FF7B274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
