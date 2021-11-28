@@ -67,6 +67,7 @@
 			children = (
 				377E865A274DD8F10043196F /* DroppedPinViewController.swift */,
 				377E865C274DECE00043196F /* DroppedPinDelegate.swift */,
+				3776FF7C274F2EB30007B2EE /* PEDetailLabel.swift */,
 			);
 			path = DroppedPinPinScreen;
 			sourceTree = "<group>";
@@ -128,7 +129,6 @@
 				37B9C0F5274589B100B466DA /* LaunchScreen.storyboard */,
 				37B9C0F8274589B100B466DA /* Info.plist */,
 				37A48EE62745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld */,
-				3776FF7C274F2EB30007B2EE /* PEDetailLabel.swift */,
 			);
 			path = MapKitAndUserLocation;
 			sourceTree = "<group>";

@@ -23,7 +23,7 @@ class PEDetailLabel: UILabel{
         setText(titleText: titleText, bodyText: bodyText)
     }
     
-    func setBodyText(_ text: String){
+    func setDetailText(_ text: String){
         body = text
         setText(titleText: title, bodyText: text)
     }

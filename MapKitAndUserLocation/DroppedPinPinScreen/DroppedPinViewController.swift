@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class DroppedPinViewController: UIViewController {
 
@@ -42,9 +43,10 @@ class DroppedPinViewController: UIViewController {
     
     var distanceLabel: UILabel = {
         let label = UILabel()
+        label.isEnabled = false
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .secondaryLabel
-        label.text = "450 m de distância"
+        label.text = "0 m away"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -83,7 +85,7 @@ class DroppedPinViewController: UIViewController {
         setupView()
     }
     
-    func setupView(){
+    private func setupView(){
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
         view.addSubview(scrollView)
@@ -145,6 +147,46 @@ class DroppedPinViewController: UIViewController {
         
         //scrollView.contentSize = CGSize(width: view.frame.width, height: 1000)
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+    }
+    
+    func setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D){
+        let pinLocation = CLLocation(latitude: droppedPinLocationCoordinate.latitude, longitude: droppedPinLocationCoordinate.longitude)
+        
+        if let userLocation = CLLocationManager().location {
+            distanceLabel.isEnabled = true
+            let distance = userLocation.distance(from: pinLocation)
+            let distanceString = distance < 1000 ? "\(Int(distance.rounded())) m" : String(format: "%.1f", distance/1000) + " km"
+            distanceLabel.text = distanceString + " away"
+        }
+        
+        let latitude = droppedPinLocationCoordinate.latitude
+        let longitude = droppedPinLocationCoordinate.longitude
+        let latitudeText = String(format: "%.6f", latitude.magnitude) + "° " + (latitude > 0 ? "N" : "S")
+        let longitudeText = String(format: "%.6f", longitude.magnitude) + "° " + (longitude > 0 ? "E" : "W")
+        coordinatesDetailLabel.setDetailText(latitudeText + ", " + longitudeText)
+        
+        Task {
+            do{
+                let placemarks = try await CLGeocoder().reverseGeocodeLocation(pinLocation)
+                guard let placemark = placemarks.first else { return }
+                
+                let name = placemark.name ?? ""
+                var locality = placemark.locality ?? ""
+                let subLocality = placemark.subLocality ?? ""
+                let administrativeArea = placemark.administrativeArea ?? ""
+                let postalCode = placemark.postalCode ?? ""
+                let country = placemark.country ?? ""
+                
+                if !locality.isEmpty && !administrativeArea.isEmpty{
+                    locality += " - "
+                }
+                
+                addressDetailLabel.setDetailText("\(name)\n\(subLocality)\n\(locality)\(administrativeArea)\n\(postalCode)\n\(country)")
+            }
+            catch{
+                print("Reverse Geocode Location Error: \(error)")
+            }
+        }
     }
     
     @objc func closeButtonPressed(){
