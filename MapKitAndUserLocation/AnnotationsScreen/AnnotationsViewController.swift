@@ -11,7 +11,7 @@ class AnnotationsViewController: UIViewController{
     
     var titleLabel: UILabel = {
        let titleLabel = UILabel()
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 27)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
         titleLabel.attributedText = NSAttributedString(string: "My Pins", attributes: [NSAttributedString.Key.kern: 0.54])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel

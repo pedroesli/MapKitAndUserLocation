@@ -12,7 +12,7 @@ class DroppedPinViewController: UIViewController {
    
     var titleLabel: UILabel = {
        let titleLabel = UILabel()
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 27)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
         titleLabel.attributedText = NSAttributedString(string: "Dropped Pin", attributes: [NSAttributedString.Key.kern: 0.54])
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
@@ -174,7 +174,7 @@ class DroppedPinViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 1000),
+            contentView.heightAnchor.constraint(equalToConstant: 900),
             //Distance Label
             distanceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             distanceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

@@ -16,6 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         window?.rootViewController = MapViewController()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(resignView))
+        window?.addGestureRecognizer(tapGesture)
         window?.makeKeyAndVisible()
         
     }
@@ -48,6 +50,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    @objc func resignView(){
+        window?.endEditing(true)
+    }
+    
 }
 
