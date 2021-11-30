@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372B04682755148700F8234D /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B04672755148700F8234D /* ActionTableViewCell.swift */; };
+		372B046A275518DC00F8234D /* ActionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B0469275518DC00F8234D /* ActionContent.swift */; };
 		3776FF7B274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776FF7A274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift */; };
 		3776FF7D274F2EB30007B2EE /* PEDetailLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3776FF7C274F2EB30007B2EE /* PEDetailLabel.swift */; };
 		377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377E865A274DD8F10043196F /* DroppedPinViewController.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372B04672755148700F8234D /* ActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
+		372B0469275518DC00F8234D /* ActionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionContent.swift; sourceTree = "<group>"; };
 		3776FF7A274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableParagraphStyle+CustomInitiator.swift"; sourceTree = "<group>"; };
 		3776FF7C274F2EB30007B2EE /* PEDetailLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEDetailLabel.swift; sourceTree = "<group>"; };
 		377E865A274DD8F10043196F /* DroppedPinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedPinViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 				377E865A274DD8F10043196F /* DroppedPinViewController.swift */,
 				377E865C274DECE00043196F /* DroppedPinDelegate.swift */,
 				3776FF7C274F2EB30007B2EE /* PEDetailLabel.swift */,
+				372B04672755148700F8234D /* ActionTableViewCell.swift */,
+				372B0469275518DC00F8234D /* ActionContent.swift */,
 			);
 			path = DroppedPinPinScreen;
 			sourceTree = "<group>";
@@ -215,6 +221,8 @@
 				377E865D274DECE00043196F /* DroppedPinDelegate.swift in Sources */,
 				37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */,
 				37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */,
+				372B046A275518DC00F8234D /* ActionContent.swift in Sources */,
+				372B04682755148700F8234D /* ActionTableViewCell.swift in Sources */,
 				37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */,
 				3776FF7D274F2EB30007B2EE /* PEDetailLabel.swift in Sources */,
 				377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */,

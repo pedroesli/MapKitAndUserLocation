@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 class DroppedPinViewController: UIViewController {
-
+   
     var titleLabel: UILabel = {
        let titleLabel = UILabel()
         titleLabel.font = UIFont.boldSystemFont(ofSize: 27)
@@ -20,10 +20,9 @@ class DroppedPinViewController: UIViewController {
     
     var closeButton: UIButton = {
         let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
-        button.setImage(UIImage(systemName: "xmark", withConfiguration: imageConfig), for: .normal)
-        button.setBackgroundImage(UIImage(named: "CloseButtonBackground"), for: .normal)
-        button.tintColor = .secondaryLabel
+        var imageConfig = UIImage.SymbolConfiguration(paletteColors: [.secondaryLabel, .tertiarySystemFill])
+        imageConfig = imageConfig.applying(UIImage.SymbolConfiguration(pointSize: 30))
+        button.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: imageConfig), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -31,12 +30,12 @@ class DroppedPinViewController: UIViewController {
     var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        //scrollView.backgroundColor = .red
         return scrollView
     }()
     
     var contentView: UIView = {
         let view = UIView()
+        view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -78,7 +77,59 @@ class DroppedPinViewController: UIViewController {
     
     var coordinatesDetailLabel = PEDetailLabel(titleText: "Coordinates", bodyText: "15,40054° S, 48,04333° O")
     
+    var pinInputContentView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        view.backgroundColor = .backgroundSecondary
+        view.layer.cornerRadius = 9
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var pinTitleInputField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Title"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    var lineView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var notesTextField: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
+    var actionTableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(), style: .insetGrouped)
+        tableView.isScrollEnabled = false
+        tableView.separatorColor = .gray
+        tableView.backgroundColor = .clear
+        //Compensate for the top content pading to remove content clipping
+        tableView.contentInset = UIEdgeInsets(top: -35, left: 0, bottom: 0, right: 0)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     var delegate: DroppedPinDelegate?
+    var isAddMode = true
+    
+    let addContents = [
+        ActionContent(text: "Add to Annotation List", imageName: "plus.circle.fill"),
+        ActionContent(text: "Cancel", imageName: "xmark.circle.fill")
+    ]
+    
+    let editContents = [
+        ActionContent(text: "Delete", imageName: "trash.circle.fill"),
+        ActionContent(text: "Cancel", imageName: "xmark.circle.fill")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,23 +139,29 @@ class DroppedPinViewController: UIViewController {
     private func setupView(){
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
-        view.addSubview(scrollView)
         
+        view.addSubview(scrollView)
         scrollView.addSubview(contentView)
+        
         contentView.addSubview(distanceLabel)
         contentView.addSubview(detailLabel)
         contentView.addSubview(detailContentView)
+        contentView.addSubview(pinInputContentView)
+        contentView.addSubview(actionTableView)
         detailContentView.addSubview(addressDetailLabel)
         detailContentView.addSubview(lineView)
         detailContentView.addSubview(coordinatesDetailLabel)
+        pinInputContentView.addSubview(pinTitleInputField)
+        pinInputContentView.addSubview(lineView2)
+        pinInputContentView.addSubview(notesTextField)
+        
+        pinTitleInputField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         NSLayoutConstraint.activate([
             //Title Label
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             //Close Button
-            closeButton.widthAnchor.constraint(equalToConstant: 30),
-            closeButton.heightAnchor.constraint(equalToConstant: 30),
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             //Scroll View +
@@ -117,6 +174,7 @@ class DroppedPinViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 1000),
             //Distance Label
             distanceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             distanceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -142,11 +200,39 @@ class DroppedPinViewController: UIViewController {
             //Coordinates Detail Label
             coordinatesDetailLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 15),
             coordinatesDetailLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 16),
-            coordinatesDetailLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16)
+            coordinatesDetailLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor, constant: -16),
+            //Pin Input View +++
+            pinInputContentView.topAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: 16),
+            pinInputContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            pinInputContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            pinInputContentView.heightAnchor.constraint(equalToConstant: 250),
+            //Pin Title Input
+            pinTitleInputField.topAnchor.constraint(equalTo: pinInputContentView.topAnchor, constant: 15),
+            pinTitleInputField.leadingAnchor.constraint(equalTo: pinInputContentView.leadingAnchor, constant: 16),
+            pinTitleInputField.trailingAnchor.constraint(equalTo: pinInputContentView.trailingAnchor, constant: -16),
+            //Line View 2
+            lineView2.topAnchor.constraint(equalTo: pinTitleInputField.bottomAnchor, constant: 15),
+            lineView2.leadingAnchor.constraint(equalTo: pinInputContentView.leadingAnchor, constant: 16),
+            lineView2.trailingAnchor.constraint(equalTo: pinInputContentView.trailingAnchor),
+            lineView2.heightAnchor.constraint(equalToConstant: 0.5),
+            //Notes Text View
+            notesTextField.topAnchor.constraint(equalTo: lineView2.bottomAnchor, constant: 15),
+            notesTextField.leadingAnchor.constraint(equalTo: pinInputContentView.leadingAnchor, constant: 16),
+            notesTextField.trailingAnchor.constraint(equalTo: pinInputContentView.trailingAnchor, constant: -16),
+            notesTextField.bottomAnchor.constraint(equalTo: pinInputContentView.bottomAnchor, constant: -15),
+            //Action Table View
+            actionTableView.topAnchor.constraint(equalTo: pinInputContentView.bottomAnchor, constant: 16),
+            actionTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0), //insetGrouped already has 16 padding left and right
+            actionTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            actionTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+            //actionTableView.heightAnchor.constraint(equalToConstant: tableViewHeight)
         ])
         
-        //scrollView.contentSize = CGSize(width: view.frame.width, height: 1000)
+        //scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+        
+        actionTableView.register(ActionTableViewCell.self, forCellReuseIdentifier: ActionTableViewCell.identifier)
+        actionTableView.dataSource = self
     }
     
     func setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D){
@@ -190,6 +276,21 @@ class DroppedPinViewController: UIViewController {
     }
     
     @objc func closeButtonPressed(){
+        view.endEditing(true)
         delegate?.droppedPinCloseButtonPressed()
+    }
+}
+
+extension DroppedPinViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return isAddMode ? addContents.count : editContents.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ActionTableViewCell.identifier, for: indexPath) as! ActionTableViewCell
+        
+        cell.setCell(actionContent: isAddMode ? addContents[indexPath.row] : editContents[indexPath.row])
+        
+        return cell
     }
 }
