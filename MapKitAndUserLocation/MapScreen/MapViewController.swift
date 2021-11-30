@@ -38,7 +38,6 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     let selectionGenerator = UIImpactFeedbackGenerator(style: .light)
-    let droppedPinContentVC = DroppedPinViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,9 +62,6 @@ class MapViewController: UIViewController {
         floatingPanel.track(scrollView: contentVC.tableView)
         floatingPanel.addPanel(toParent: self)
         
-        droppedPinContentVC.delegate = self
-        droppedPinFloatingPanel.set(contentViewController: droppedPinContentVC)
-        droppedPinFloatingPanel.track(scrollView: droppedPinContentVC.scrollView)
         droppedPinFloatingPanel.addPanel(toParent: self)
         droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
     }
@@ -113,7 +109,13 @@ class MapViewController: UIViewController {
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
         
-        droppedPinContentVC.setDropedPin(droppedPinLocationCoordinate: mapCoord)
+        let pinContentVC = DroppedPinViewController()
+        pinContentVC.setDropedPin(droppedPinLocationCoordinate: mapCoord)
+        pinContentVC.delegate = self
+        
+        droppedPinFloatingPanel.set(contentViewController: pinContentVC)
+        droppedPinFloatingPanel.track(scrollView: pinContentVC.scrollView)
+        
         if droppedPinFloatingPanel.state == .hidden {
             droppedPinFloatingPanel.move(to: .half, animated: true) {
                 self.floatingPanel.move(to: .hidden, animated: false, completion: nil)

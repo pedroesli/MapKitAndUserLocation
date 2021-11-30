@@ -19,6 +19,11 @@
 		3793C4FF274D541F00E7FB43 /* AnnotationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */; };
 		3793C500274D541F00E7FB43 /* AnnotationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3793C4FE274D541F00E7FB43 /* AnnotationTableViewCell.xib */; };
 		37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37A48EE62745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld */; };
+		37A997792756685B00438B54 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A997782756685B00438B54 /* CoreDataManager.swift */; };
+		37A9979427566DA500438B54 /* CDHolder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9979027566DA500438B54 /* CDHolder+CoreDataClass.swift */; };
+		37A9979527566DA500438B54 /* CDHolder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9979127566DA500438B54 /* CDHolder+CoreDataProperties.swift */; };
+		37A997A02756C7F100438B54 /* CDAnnotation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9979E2756C7F100438B54 /* CDAnnotation+CoreDataClass.swift */; };
+		37A997A12756C7F100438B54 /* CDAnnotation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A9979F2756C7F100438B54 /* CDAnnotation+CoreDataProperties.swift */; };
 		37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EA274589B000B466DA /* AppDelegate.swift */; };
 		37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EC274589B000B466DA /* SceneDelegate.swift */; };
 		37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B9C0EE274589B000B466DA /* MapViewController.swift */; };
@@ -38,6 +43,11 @@
 		3793C4FD274D541F00E7FB43 /* AnnotationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTableViewCell.swift; sourceTree = "<group>"; };
 		3793C4FE274D541F00E7FB43 /* AnnotationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationTableViewCell.xib; sourceTree = "<group>"; };
 		37A48EE72745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MapKitAndUserLocation.xcdatamodel; sourceTree = "<group>"; };
+		37A997782756685B00438B54 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		37A9979027566DA500438B54 /* CDHolder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDHolder+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37A9979127566DA500438B54 /* CDHolder+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDHolder+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		37A9979E2756C7F100438B54 /* CDAnnotation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAnnotation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37A9979F2756C7F100438B54 /* CDAnnotation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDAnnotation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		37B9C0E7274589B000B466DA /* MapKitAndUserLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitAndUserLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B9C0EA274589B000B466DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37B9C0EC274589B000B466DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +115,17 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		37A99773275667B400438B54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37A9979E2756C7F100438B54 /* CDAnnotation+CoreDataClass.swift */,
+				37A9979F2756C7F100438B54 /* CDAnnotation+CoreDataProperties.swift */,
+				37A9979027566DA500438B54 /* CDHolder+CoreDataClass.swift */,
+				37A9979127566DA500438B54 /* CDHolder+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		37B9C0DE274589B000B466DA = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +145,7 @@
 		37B9C0E9274589B000B466DA /* MapKitAndUserLocation */ = {
 			isa = PBXGroup;
 			children = (
+				37A99773275667B400438B54 /* Models */,
 				377E8659274DD8580043196F /* DroppedPinPinScreen */,
 				377E8656274DD1580043196F /* Essentials */,
 				3793C4FA274D3D2B00E7FB43 /* Extensions */,
@@ -135,6 +157,7 @@
 				37B9C0F5274589B100B466DA /* LaunchScreen.storyboard */,
 				37B9C0F8274589B100B466DA /* Info.plist */,
 				37A48EE62745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld */,
+				37A997782756685B00438B54 /* CoreDataManager.swift */,
 			);
 			path = MapKitAndUserLocation;
 			sourceTree = "<group>";
@@ -218,16 +241,21 @@
 			files = (
 				3793C4FF274D541F00E7FB43 /* AnnotationTableViewCell.swift in Sources */,
 				3793C4F9274C8C6900E7FB43 /* AnnotationsViewController.swift in Sources */,
+				37A9979527566DA500438B54 /* CDHolder+CoreDataProperties.swift in Sources */,
 				377E865D274DECE00043196F /* DroppedPinDelegate.swift in Sources */,
 				37B9C0EF274589B000B466DA /* MapViewController.swift in Sources */,
 				37B9C0EB274589B000B466DA /* AppDelegate.swift in Sources */,
 				372B046A275518DC00F8234D /* ActionContent.swift in Sources */,
 				372B04682755148700F8234D /* ActionTableViewCell.swift in Sources */,
 				37B9C0ED274589B000B466DA /* SceneDelegate.swift in Sources */,
+				37A997A12756C7F100438B54 /* CDAnnotation+CoreDataProperties.swift in Sources */,
 				3776FF7D274F2EB30007B2EE /* PEDetailLabel.swift in Sources */,
 				377E865B274DD8F10043196F /* DroppedPinViewController.swift in Sources */,
 				3793C4FC274D3D9200E7FB43 /* UIColor+CustomColors.swift in Sources */,
 				37A48EE82745FCDE0063D656 /* MapKitAndUserLocation.xcdatamodeld in Sources */,
+				37A997A02756C7F100438B54 /* CDAnnotation+CoreDataClass.swift in Sources */,
+				37A997792756685B00438B54 /* CoreDataManager.swift in Sources */,
+				37A9979427566DA500438B54 /* CDHolder+CoreDataClass.swift in Sources */,
 				3776FF7B274F27790007B2EE /* NSMutableParagraphStyle+CustomInitiator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

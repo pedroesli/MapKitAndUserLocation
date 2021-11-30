@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class">
-        <attribute name="attribute" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    <entity name="CDAnnotation" representedClassName="CDAnnotation" syncable="YES">
+        <attribute name="address" attributeType="String"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String" defaultValueString="My Pin"/>
+        <relationship name="container" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDHolder" inverseName="annotations" inverseEntity="CDHolder"/>
+    </entity>
+    <entity name="CDHolder" representedClassName="CDHolder" syncable="YES">
+        <relationship name="annotations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CDAnnotation" inverseName="container" inverseEntity="CDAnnotation"/>
     </entity>
     <elements>
-        <element name="Entity" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="CDAnnotation" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="CDHolder" positionX="-54" positionY="18" width="128" height="44"/>
     </elements>
 </model>

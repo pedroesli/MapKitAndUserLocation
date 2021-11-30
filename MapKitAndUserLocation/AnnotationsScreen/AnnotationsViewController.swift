@@ -25,6 +25,8 @@ class AnnotationsViewController: UIViewController{
         return tableView
     }()
     
+    lazy var annotations: [CDAnnotation] = CoreDataManager.shared.fetchAllCDAnnotations()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -54,12 +56,13 @@ class AnnotationsViewController: UIViewController{
 //MARK: Table view data source
 extension AnnotationsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return annotations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AnnotationTableViewCell.identifier, for: indexPath) as! AnnotationTableViewCell
-        cell.setCell(primaryText: "Hey \(indexPath.row)", secondaryText: "Sup")
+        let annotation = annotations[indexPath.row]
+        cell.setCell(primaryText: annotation.title ?? "My Pin", secondaryText: annotation.address ?? ")
         return cell
     }
 }
