@@ -233,6 +233,7 @@ class DroppedPinViewController: UIViewController {
         
         actionTableView.register(ActionTableViewCell.self, forCellReuseIdentifier: ActionTableViewCell.identifier)
         actionTableView.dataSource = self
+        actionTableView.delegate = self
     }
     
     func setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D){
@@ -292,5 +293,15 @@ extension DroppedPinViewController: UITableViewDataSource {
         cell.setCell(actionContent: isAddMode ? addContents[indexPath.row] : editContents[indexPath.row])
         
         return cell
+    }
+}
+
+extension DroppedPinViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedAction = isAddMode ? addContents[indexPath.row] : editContents[indexPath.row]
+        
+        if selectedAction.text == "Cancel" {
+            closeButtonPressed()
+        }
     }
 }

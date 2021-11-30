@@ -40,7 +40,7 @@ class AnnotationsViewController: UIViewController{
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             //Table View
-            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

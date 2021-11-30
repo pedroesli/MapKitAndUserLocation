@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = MapViewController()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(resignView))
+        tapGesture.cancelsTouchesInView = false
         window?.addGestureRecognizer(tapGesture)
         window?.makeKeyAndVisible()
         
