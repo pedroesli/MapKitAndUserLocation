@@ -62,7 +62,7 @@ extension AnnotationsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AnnotationTableViewCell.identifier, for: indexPath) as! AnnotationTableViewCell
         let annotation = annotations[indexPath.row]
-        cell.setCell(primaryText: annotation.title ?? "My Pin", secondaryText: annotation.address ?? ")
+        cell.setCell(primaryText: annotation.title ?? "My Pin", secondaryText: annotation.address ?? "")
         return cell
     }
 }
