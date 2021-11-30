@@ -9,7 +9,21 @@ import UIKit
 
 class AnnotationsViewController: UIViewController{
     
-    var tableView: UITableView = UITableView(frame: CGRect(), style: .insetGrouped)
+    var titleLabel: UILabel = {
+       let titleLabel = UILabel()
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 27)
+        titleLabel.attributedText = NSAttributedString(string: "My Pins", attributes: [NSAttributedString.Key.kern: 0.54])
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }()
+    
+    var tableView: UITableView = {
+        var tableView = UITableView(frame: CGRect(), style: .insetGrouped)
+        tableView.backgroundColor = .clear
+        tableView.separatorColor = .gray
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +33,14 @@ class AnnotationsViewController: UIViewController{
     //MARK: Methods
     func setupView(){
         view.backgroundColor = .clear
+        view.addSubview(titleLabel)
         view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .clear
-        tableView.separatorColor = .gray
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            //Table View
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
