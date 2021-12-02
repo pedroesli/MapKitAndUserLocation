@@ -24,7 +24,7 @@ class ActionTableViewCell: UITableViewCell {
         //Content Configuration
         var content = self.defaultContentConfiguration()
         content.textProperties.color = .systemBlue
-        content.text = actionContent.text
+        content.text = actionContent.type.rawValue
         content.axesPreservingSuperviewLayoutMargins = UIAxis.horizontal
         content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0)
         

@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import FloatingPanel
+import CoreLocation
 
-class AnnotationsViewController: UIViewController{
+class AnnotationsViewController: UIViewController {
     
     var titleLabel: UILabel = {
        let titleLabel = UILabel()
@@ -26,6 +28,7 @@ class AnnotationsViewController: UIViewController{
     }()
     
     lazy var annotations: [CDAnnotation] = CoreDataManager.shared.fetchAllCDAnnotations()
+    var delegate: AnnotationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,16 @@ class AnnotationsViewController: UIViewController{
         ])
         
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UINib(nibName: "AnnotationTableViewCell", bundle: nil), forCellReuseIdentifier: AnnotationTableViewCell.identifier)
+    }
+    
+    func insertIntoTable(annotation: CDAnnotation){
+        annotations.insert(annotation, at: 0)
+        
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+        tableView.endUpdates()
     }
 }
 
@@ -66,3 +78,11 @@ extension AnnotationsViewController: UITableViewDataSource{
         return cell
     }
 }
+
+//MARK: Table view delegate
+extension AnnotationsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.pressedRow(annotation: annotations[indexPath.row])
+    }
+}
+

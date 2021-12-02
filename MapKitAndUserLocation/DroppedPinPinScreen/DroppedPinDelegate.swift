@@ -9,4 +9,5 @@ import Foundation
 
 protocol DroppedPinDelegate{
     func droppedPinCloseButtonPressed()
+    func addedNewAnnotation(annotation: CDAnnotation)
 }

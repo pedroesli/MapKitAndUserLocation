@@ -9,7 +9,13 @@ import UIKit
 import CoreLocation
 
 class DroppedPinViewController: UIViewController {
-   
+    
+    private struct DroppedPin {
+        var latitude: Double
+        var longitude: Double
+        var address: String
+    }
+    
     var titleLabel: UILabel = {
        let titleLabel = UILabel()
         titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
@@ -119,17 +125,32 @@ class DroppedPinViewController: UIViewController {
     }()
     
     var delegate: DroppedPinDelegate?
-    var isAddMode = true
+    var isAddMode: Bool
+    let actions: [ActionContent]
+    private var droppedPin: DroppedPin?
     
-    let addContents = [
-        ActionContent(text: "Add to Annotation List", imageName: "plus.circle.fill"),
-        ActionContent(text: "Cancel", imageName: "xmark.circle.fill")
-    ]
+    init(isAddMode: Bool){
+        self.isAddMode = isAddMode
+        if isAddMode {
+            actions = [
+                ActionContent(type: .add, imageName: "plus.circle.fill"),
+                ActionContent(type: .cancel, imageName: "xmark.circle.fill")
+            ]
+        }
+        else{
+            actions = [
+                ActionContent(type: .save, imageName: "folder.circle.fill"),
+                ActionContent(type: .delete, imageName: "trash.circle.fill"),
+                ActionContent(type: .cancel, imageName: "xmark.circle.fill")
+            ]
+        }
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    let editContents = [
-        ActionContent(text: "Delete", imageName: "trash.circle.fill"),
-        ActionContent(text: "Cancel", imageName: "xmark.circle.fill")
-    ]
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -269,6 +290,8 @@ class DroppedPinViewController: UIViewController {
                 }
                 
                 addressDetailLabel.setDetailText("\(name)\n\(subLocality)\n\(locality)\(administrativeArea)\n\(postalCode)\n\(country)")
+                
+                self.droppedPin = DroppedPin(latitude: droppedPinLocationCoordinate.latitude, longitude: droppedPinLocationCoordinate.longitude, address: name)
             }
             catch{
                 print("Reverse Geocode Location Error: \(error)")
@@ -284,23 +307,37 @@ class DroppedPinViewController: UIViewController {
 
 extension DroppedPinViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isAddMode ? addContents.count : editContents.count
+        return actions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ActionTableViewCell.identifier, for: indexPath) as! ActionTableViewCell
-        
-        cell.setCell(actionContent: isAddMode ? addContents[indexPath.row] : editContents[indexPath.row])
-        
+        cell.setCell(actionContent: actions[indexPath.row])
         return cell
     }
 }
 
 extension DroppedPinViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedAction = isAddMode ? addContents[indexPath.row] : editContents[indexPath.row]
+        let action = actions[indexPath.row]
         
-        if selectedAction.text == "Cancel" {
+        switch action.type {
+        case .add:
+            guard let droppedPin = self.droppedPin else { return }
+            var title = self.pinTitleInputField.text ?? ""
+            let notes = self.notesTextField.text ?? ""
+            
+            if title.isEmpty {
+                title = "My Pin"
+            }
+            
+            let annotation = CoreDataManager.shared.createCDAnnotation(latitude: droppedPin.latitude, longitude: droppedPin.longitude, title: title, notes: notes, address: droppedPin.address)
+            delegate?.addedNewAnnotation(annotation: annotation)
+        case .save:
+            break
+        case .delete:
+            break
+        case .cancel:
             closeButtonPressed()
         }
     }

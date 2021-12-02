@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
         return map
     }()
     
-    var floatingPanel: FloatingPanelController = {
+    var annotationsFloatingPanel: FloatingPanelController = {
         let fp = FloatingPanelController()
         fp.surfaceView.appearance.backgroundColor = .background
         fp.surfaceView.appearance.cornerRadius = 10.0
@@ -38,6 +38,7 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     let selectionGenerator = UIImpactFeedbackGenerator(style: .light)
+    let annotationsVC = AnnotationsViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +58,10 @@ class MapViewController: UIViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        let contentVC = AnnotationsViewController()
-        floatingPanel.set(contentViewController: contentVC)
-        floatingPanel.track(scrollView: contentVC.tableView)
-        floatingPanel.addPanel(toParent: self)
+        annotationsVC.delegate = self
+        annotationsFloatingPanel.set(contentViewController: annotationsVC)
+        annotationsFloatingPanel.track(scrollView: annotationsVC.tableView)
+        annotationsFloatingPanel.addPanel(toParent: self)
         
         droppedPinFloatingPanel.addPanel(toParent: self)
         droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
@@ -92,6 +93,24 @@ class MapViewController: UIViewController {
         }
     }
     
+    func showPinFloatingPanel(pinLocationCoordinate: CLLocationCoordinate2D, isAddMode: Bool){
+        let pinContentVC = DroppedPinViewController(isAddMode: isAddMode)
+        pinContentVC.setDropedPin(droppedPinLocationCoordinate: pinLocationCoordinate)
+        pinContentVC.delegate = self
+        
+        droppedPinFloatingPanel.set(contentViewController: pinContentVC)
+        droppedPinFloatingPanel.track(scrollView: pinContentVC.scrollView)
+        
+        if droppedPinFloatingPanel.state == .hidden {
+            droppedPinFloatingPanel.move(to: .half, animated: true) {
+                self.annotationsFloatingPanel.move(to: .hidden, animated: false, completion: nil)
+            }
+        }
+        else if droppedPinFloatingPanel.state == .tip {
+            droppedPinFloatingPanel.move(to: .half, animated: true)
+        }
+    }
+    
     @objc func didLongPress(longGesture: UILongPressGestureRecognizer){
         longGesture.isEnabled = false
         selectionGenerator.impactOccurred()
@@ -109,30 +128,29 @@ class MapViewController: UIViewController {
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
         
-        let pinContentVC = DroppedPinViewController()
-        pinContentVC.setDropedPin(droppedPinLocationCoordinate: mapCoord)
-        pinContentVC.delegate = self
+        showPinFloatingPanel(pinLocationCoordinate: mapCoord, isAddMode: true)
         
-        droppedPinFloatingPanel.set(contentViewController: pinContentVC)
-        droppedPinFloatingPanel.track(scrollView: pinContentVC.scrollView)
-        
-        if droppedPinFloatingPanel.state == .hidden {
-            droppedPinFloatingPanel.move(to: .half, animated: true) {
-                self.floatingPanel.move(to: .hidden, animated: false, completion: nil)
-            }
-        }
-        else if droppedPinFloatingPanel.state == .tip {
-            droppedPinFloatingPanel.move(to: .half, animated: true)
-        }
         longGesture.isEnabled = true
     }
 }
 
 extension MapViewController: DroppedPinDelegate {
+    
+    func addedNewAnnotation(annotation: CDAnnotation) {
+        annotationsVC.insertIntoTable(annotation: annotation)
+    }
+    
     func droppedPinCloseButtonPressed() {
-        floatingPanel.move(to: droppedPinFloatingPanel.state, animated: false) {
+        annotationsFloatingPanel.move(to: droppedPinFloatingPanel.state, animated: false) {
             self.droppedPinFloatingPanel.move(to: .hidden, animated: true, completion: nil)
         }
+    }
+}
+
+extension MapViewController: AnnotationDelegate {
+    func pressedRow(annotation: CDAnnotation) {
+        let pinLocation = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
+        showPinFloatingPanel(pinLocationCoordinate: pinLocation, isAddMode: false)
     }
 }
 

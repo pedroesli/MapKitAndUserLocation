@@ -60,7 +60,7 @@ class CoreDataManager{
     }
     
     //@discardableResult
-    func createCDAnnotation(latitude: Double, longitude: Double, title: String, notes: String) -> CDAnnotation {
+    func createCDAnnotation(latitude: Double, longitude: Double, title: String, notes: String, address: String) -> CDAnnotation {
         var holder = fetchHolder()
         if holder == nil {
             holder = CDHolder(context: context)
@@ -71,6 +71,7 @@ class CoreDataManager{
         newCDAnnotation.longitude = longitude
         newCDAnnotation.title = title
         newCDAnnotation.notes = notes
+        newCDAnnotation.address = address
         
         holder?.insertIntoAnnotations(newCDAnnotation, at: 0)
         saveContext()
