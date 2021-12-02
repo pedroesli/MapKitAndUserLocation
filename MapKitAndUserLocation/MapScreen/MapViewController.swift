@@ -93,10 +93,17 @@ class MapViewController: UIViewController {
         }
     }
     
-    func showPinFloatingPanel(pinLocationCoordinate: CLLocationCoordinate2D, isAddMode: Bool){
+    func showPinFloatingPanel(pinLocationCoordinate: CLLocationCoordinate2D, cdAnnotation: CDAnnotation? = nil){
+        let isAddMode = cdAnnotation == nil
         let pinContentVC = DroppedPinViewController(isAddMode: isAddMode)
-        pinContentVC.setDropedPin(droppedPinLocationCoordinate: pinLocationCoordinate)
+        
         pinContentVC.delegate = self
+        if let cdAnnotation = cdAnnotation {
+            pinContentVC.setDropedPin(cdAnnotation: cdAnnotation)
+        }
+        else{
+            pinContentVC.setDropedPin(droppedPinLocationCoordinate: pinLocationCoordinate)
+        }
         
         droppedPinFloatingPanel.set(contentViewController: pinContentVC)
         droppedPinFloatingPanel.track(scrollView: pinContentVC.scrollView)
@@ -128,7 +135,7 @@ class MapViewController: UIViewController {
         mapView.selectAnnotation(pin, animated: true)
         lastSelectedPin = pin
         
-        showPinFloatingPanel(pinLocationCoordinate: mapCoord, isAddMode: true)
+        showPinFloatingPanel(pinLocationCoordinate: mapCoord)
         
         longGesture.isEnabled = true
     }
@@ -140,7 +147,7 @@ extension MapViewController: DroppedPinDelegate {
         annotationsVC.insertIntoTable(annotation: annotation)
     }
     
-    func droppedPinCloseButtonPressed() {
+    func droppedPinCanClose() {
         annotationsFloatingPanel.move(to: droppedPinFloatingPanel.state, animated: false) {
             self.droppedPinFloatingPanel.move(to: .hidden, animated: true, completion: nil)
         }
@@ -150,7 +157,7 @@ extension MapViewController: DroppedPinDelegate {
 extension MapViewController: AnnotationDelegate {
     func pressedRow(annotation: CDAnnotation) {
         let pinLocation = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
-        showPinFloatingPanel(pinLocationCoordinate: pinLocation, isAddMode: false)
+        showPinFloatingPanel(pinLocationCoordinate: pinLocation, cdAnnotation: annotation)
     }
 }
 
@@ -172,9 +179,7 @@ extension MapViewController: CLLocationManagerDelegate{
         case .denied:
             // Show alert instructing them how to turn on permissions
             break
-        case .authorizedAlways:
-            break
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             mapView.showsUserLocation = true
             centerViewOnUserLocation()
             manager.startUpdatingLocation()

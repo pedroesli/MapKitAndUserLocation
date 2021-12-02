@@ -128,6 +128,7 @@ class DroppedPinViewController: UIViewController {
     var isAddMode: Bool
     let actions: [ActionContent]
     private var droppedPin: DroppedPin?
+    private var annotation: CDAnnotation?
     
     init(isAddMode: Bool){
         self.isAddMode = isAddMode
@@ -299,9 +300,16 @@ class DroppedPinViewController: UIViewController {
         }
     }
     
+    func setDropedPin(cdAnnotation: CDAnnotation){
+        self.annotation = cdAnnotation
+        setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D(latitude: cdAnnotation.latitude, longitude: cdAnnotation.longitude))
+        pinTitleInputField.text = cdAnnotation.title
+        notesTextField.text = cdAnnotation.notes
+    }
+    
     @objc func closeButtonPressed(){
         view.endEditing(true)
-        delegate?.droppedPinCloseButtonPressed()
+        delegate?.droppedPinCanClose()
     }
 }
 
@@ -333,8 +341,13 @@ extension DroppedPinViewController: UITableViewDelegate {
             
             let annotation = CoreDataManager.shared.createCDAnnotation(latitude: droppedPin.latitude, longitude: droppedPin.longitude, title: title, notes: notes, address: droppedPin.address)
             delegate?.addedNewAnnotation(annotation: annotation)
+            delegate?.droppedPinCanClose()
         case .save:
-            break
+            guard let annotation = self.annotation else { return }
+            
+            annotation.title = self.pinTitleInputField.text ?? ""
+            annotation.notes = self.notesTextField.text ?? ""
+            CoreDataManager.shared.saveContext()
         case .delete:
             break
         case .cancel:

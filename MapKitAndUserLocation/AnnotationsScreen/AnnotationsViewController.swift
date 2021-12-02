@@ -30,7 +30,7 @@ class AnnotationsViewController: UIViewController {
     lazy var annotations: [CDAnnotation] = CoreDataManager.shared.fetchAllCDAnnotations()
     var delegate: AnnotationDelegate?
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         setupView()
     }
@@ -63,10 +63,21 @@ class AnnotationsViewController: UIViewController {
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         tableView.endUpdates()
     }
+    
+    func deleteFromTable(indexPath: IndexPath){
+        let annotation = annotations[indexPath.row]
+        
+        annotations.remove(at: indexPath.row)
+        CoreDataManager.shared.deleteCDAnnotation(cdAnnotation: annotation)
+        
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .left)
+        tableView.endUpdates()
+    }
 }
 
 //MARK: Table view data source
-extension AnnotationsViewController: UITableViewDataSource{
+extension AnnotationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return annotations.count
     }
@@ -81,8 +92,17 @@ extension AnnotationsViewController: UITableViewDataSource{
 
 //MARK: Table view delegate
 extension AnnotationsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         delegate?.pressedRow(annotation: annotations[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "") { action, view, done in
+            done(true)
+            self.deleteFromTable(indexPath: indexPath)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 

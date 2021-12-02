@@ -78,6 +78,11 @@ class CoreDataManager{
         return newCDAnnotation
     }
     
+    func deleteCDAnnotation(cdAnnotation: CDAnnotation){
+        context.delete(cdAnnotation)
+        saveContext()
+    }
+    
     private func fetchHolder() -> CDHolder? {
         do{
             return try context.fetch(CDHolder.fetchRequest()).first
