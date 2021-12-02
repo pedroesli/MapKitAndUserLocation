@@ -74,6 +74,13 @@ class AnnotationsViewController: UIViewController {
         tableView.deleteRows(at: [indexPath], with: .left)
         tableView.endUpdates()
     }
+    
+    func editAnnotationAtTable(annotation: CDAnnotation, indexPath: IndexPath){
+        annotations[indexPath.row] = annotation
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
 }
 
 //MARK: Table view data source
@@ -93,7 +100,7 @@ extension AnnotationsViewController: UITableViewDataSource {
 //MARK: Table view delegate
 extension AnnotationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        delegate?.pressedRow(annotation: annotations[indexPath.row])
+        delegate?.annotation(pressedAnnotation: annotations[indexPath.row],at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

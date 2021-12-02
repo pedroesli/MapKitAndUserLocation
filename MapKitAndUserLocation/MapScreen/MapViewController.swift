@@ -35,6 +35,7 @@ class MapViewController: UIViewController {
     }()
     
     var lastSelectedPin: MKPointAnnotation?
+    var pressedAnnotationIndex: IndexPath?
     
     let locationManager = CLLocationManager()
     let selectionGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -109,9 +110,8 @@ class MapViewController: UIViewController {
         droppedPinFloatingPanel.track(scrollView: pinContentVC.scrollView)
         
         if droppedPinFloatingPanel.state == .hidden {
-            droppedPinFloatingPanel.move(to: .half, animated: true) {
-                self.annotationsFloatingPanel.move(to: .hidden, animated: false, completion: nil)
-            }
+            annotationsFloatingPanel.move(to: .hidden, animated: true, completion: nil)
+            droppedPinFloatingPanel.move(to: .half, animated: true)
         }
         else if droppedPinFloatingPanel.state == .tip {
             droppedPinFloatingPanel.move(to: .half, animated: true)
@@ -142,9 +142,13 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: DroppedPinDelegate {
-    
-    func addedNewAnnotation(annotation: CDAnnotation) {
+    func droppedPin(addedAnnotation annotation: CDAnnotation) {
         annotationsVC.insertIntoTable(annotation: annotation)
+    }
+    
+    func droppedPin(editedAnnotation annotation: CDAnnotation) {
+        guard let indexPath = pressedAnnotationIndex else { return }
+        annotationsVC.editAnnotationAtTable(annotation: annotation, indexPath: indexPath)
     }
     
     func droppedPinCanClose() {
@@ -155,7 +159,8 @@ extension MapViewController: DroppedPinDelegate {
 }
 
 extension MapViewController: AnnotationDelegate {
-    func pressedRow(annotation: CDAnnotation) {
+    func annotation(pressedAnnotation annotation: CDAnnotation, at indexPath: IndexPath) {
+        self.pressedAnnotationIndex = indexPath
         let pinLocation = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
         showPinFloatingPanel(pinLocationCoordinate: pinLocation, cdAnnotation: annotation)
     }

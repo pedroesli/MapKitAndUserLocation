@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AnnotationDelegate{
-    func pressedRow(annotation: CDAnnotation)
+    func annotation(pressedAnnotation annotation: CDAnnotation, at indexPath: IndexPath)
 }

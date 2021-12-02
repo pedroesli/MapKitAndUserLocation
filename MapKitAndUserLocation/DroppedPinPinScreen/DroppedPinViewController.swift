@@ -340,14 +340,16 @@ extension DroppedPinViewController: UITableViewDelegate {
             }
             
             let annotation = CoreDataManager.shared.createCDAnnotation(latitude: droppedPin.latitude, longitude: droppedPin.longitude, title: title, notes: notes, address: droppedPin.address)
-            delegate?.addedNewAnnotation(annotation: annotation)
             delegate?.droppedPinCanClose()
+            delegate?.droppedPin(addedAnnotation: annotation)
         case .save:
             guard let annotation = self.annotation else { return }
             
             annotation.title = self.pinTitleInputField.text ?? ""
             annotation.notes = self.notesTextField.text ?? ""
             CoreDataManager.shared.saveContext()
+            delegate?.droppedPinCanClose()
+            delegate?.droppedPin(editedAnnotation: annotation)
         case .delete:
             break
         case .cancel:
