@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FloatingPanel
 import CoreLocation
 
 class AnnotationsViewController: UIViewController {

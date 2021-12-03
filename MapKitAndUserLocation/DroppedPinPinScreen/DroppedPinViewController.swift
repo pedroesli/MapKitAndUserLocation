@@ -125,6 +125,7 @@ class DroppedPinViewController: UIViewController {
     }()
     
     var delegate: DroppedPinDelegate?
+    var indexPath: IndexPath?
     var isAddMode: Bool
     let actions: [ActionContent]
     private var droppedPin: DroppedPin?
@@ -258,6 +259,7 @@ class DroppedPinViewController: UIViewController {
         actionTableView.delegate = self
     }
     
+    ///Method to configure add mode view
     func setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D){
         let pinLocation = CLLocation(latitude: droppedPinLocationCoordinate.latitude, longitude: droppedPinLocationCoordinate.longitude)
         
@@ -300,8 +302,10 @@ class DroppedPinViewController: UIViewController {
         }
     }
     
-    func setDropedPin(cdAnnotation: CDAnnotation){
+    ///Method to configure edit mode view
+    func setDropedPin(cdAnnotation: CDAnnotation, indexPath: IndexPath){
         self.annotation = cdAnnotation
+        self.indexPath = indexPath
         setDropedPin(droppedPinLocationCoordinate: CLLocationCoordinate2D(latitude: cdAnnotation.latitude, longitude: cdAnnotation.longitude))
         pinTitleInputField.text = cdAnnotation.title
         notesTextField.text = cdAnnotation.notes
@@ -343,14 +347,19 @@ extension DroppedPinViewController: UITableViewDelegate {
             delegate?.droppedPinCanClose()
             delegate?.droppedPin(addedAnnotation: annotation)
         case .save:
-            guard let annotation = self.annotation else { return }
+            guard let annotation = self.annotation,
+                  let index = self.indexPath
+            else { return }
             
             annotation.title = self.pinTitleInputField.text ?? ""
             annotation.notes = self.notesTextField.text ?? ""
             CoreDataManager.shared.saveContext()
             delegate?.droppedPinCanClose()
-            delegate?.droppedPin(editedAnnotation: annotation)
+            delegate?.droppedPin(editedAnnotation: annotation, at: index)
         case .delete:
+            guard let index = self.indexPath else { return }
+            delegate?.droppedPinCanClose()
+            delegate?.droppedPin(canDeleteAt: index)
             break
         case .cancel:
             closeButtonPressed()

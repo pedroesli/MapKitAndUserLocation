@@ -35,7 +35,6 @@ class MapViewController: UIViewController {
     }()
     
     var lastSelectedPin: MKPointAnnotation?
-    var pressedAnnotationIndex: IndexPath?
     
     let locationManager = CLLocationManager()
     let selectionGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -94,13 +93,13 @@ class MapViewController: UIViewController {
         }
     }
     
-    func showPinFloatingPanel(pinLocationCoordinate: CLLocationCoordinate2D, cdAnnotation: CDAnnotation? = nil){
+    func showPinFloatingPanel(pinLocationCoordinate: CLLocationCoordinate2D, cdAnnotation: CDAnnotation? = nil, indexPath: IndexPath? = nil){
         let isAddMode = cdAnnotation == nil
         let pinContentVC = DroppedPinViewController(isAddMode: isAddMode)
         
         pinContentVC.delegate = self
-        if let cdAnnotation = cdAnnotation {
-            pinContentVC.setDropedPin(cdAnnotation: cdAnnotation)
+        if let cdAnnotation = cdAnnotation, let indexPath = indexPath{
+            pinContentVC.setDropedPin(cdAnnotation: cdAnnotation, indexPath: indexPath)
         }
         else{
             pinContentVC.setDropedPin(droppedPinLocationCoordinate: pinLocationCoordinate)
@@ -142,13 +141,17 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: DroppedPinDelegate {
-    func droppedPin(addedAnnotation annotation: CDAnnotation) {
-        annotationsVC.insertIntoTable(annotation: annotation)
+    func droppedPin(canDeleteAt indexPath: IndexPath) {
+        annotationsVC.deleteFromTable(indexPath: indexPath)
     }
     
-    func droppedPin(editedAnnotation annotation: CDAnnotation) {
-        guard let indexPath = pressedAnnotationIndex else { return }
+    func droppedPin(editedAnnotation annotation: CDAnnotation, at indexPath: IndexPath) {
         annotationsVC.editAnnotationAtTable(annotation: annotation, indexPath: indexPath)
+    }
+    
+    
+    func droppedPin(addedAnnotation annotation: CDAnnotation) {
+        annotationsVC.insertIntoTable(annotation: annotation)
     }
     
     func droppedPinCanClose() {
@@ -160,9 +163,8 @@ extension MapViewController: DroppedPinDelegate {
 
 extension MapViewController: AnnotationDelegate {
     func annotation(pressedAnnotation annotation: CDAnnotation, at indexPath: IndexPath) {
-        self.pressedAnnotationIndex = indexPath
         let pinLocation = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
-        showPinFloatingPanel(pinLocationCoordinate: pinLocation, cdAnnotation: annotation)
+        showPinFloatingPanel(pinLocationCoordinate: pinLocation, cdAnnotation: annotation, indexPath: indexPath)
     }
 }
 
