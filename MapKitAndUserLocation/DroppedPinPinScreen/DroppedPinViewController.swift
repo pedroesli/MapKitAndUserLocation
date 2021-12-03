@@ -95,6 +95,7 @@ class DroppedPinViewController: UIViewController {
     var pinTitleInputField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
+        textField.returnKeyType = .done
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -254,9 +255,11 @@ class DroppedPinViewController: UIViewController {
         //scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         
-        actionTableView.register(ActionTableViewCell.self, forCellReuseIdentifier: ActionTableViewCell.identifier)
         actionTableView.dataSource = self
         actionTableView.delegate = self
+        actionTableView.register(ActionTableViewCell.self, forCellReuseIdentifier: ActionTableViewCell.identifier)
+        
+        pinTitleInputField.delegate = self
     }
     
     ///Method to configure add mode view
@@ -364,5 +367,12 @@ extension DroppedPinViewController: UITableViewDelegate {
         case .cancel:
             closeButtonPressed()
         }
+    }
+}
+
+extension DroppedPinViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
