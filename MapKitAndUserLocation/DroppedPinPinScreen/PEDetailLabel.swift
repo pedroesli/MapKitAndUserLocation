@@ -12,15 +12,43 @@ class PEDetailLabel: UILabel{
     private var title: String!
     private var body: String!
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     convenience init(titleText: String, bodyText: String){
         self.init()
+        isUserInteractionEnabled = true
         numberOfLines = 0
         translatesAutoresizingMaskIntoConstraints = false
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showMenu(sender:))))
         
         title = titleText
         body = bodyText
         
         setText(titleText: titleText, bodyText: bodyText)
+    }
+    
+    override func copy(_ sender: Any?) {
+        let board = UIPasteboard.general
+        board.string = body
+        let menu = UIMenuController.shared
+        menu.hideMenu()
+    }
+    
+    @objc func showMenu(sender: AnyObject?){
+        becomeFirstResponder()
+        let menu = UIMenuController.shared
+        if !menu.isMenuVisible{
+            menu.showMenu(from: self, rect: bounds)
+        }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.copy(_:)){
+            return true
+        }
+        return false
     }
     
     func setDetailText(_ text: String){
