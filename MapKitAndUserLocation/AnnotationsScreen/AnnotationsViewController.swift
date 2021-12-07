@@ -66,6 +66,7 @@ class AnnotationsViewController: UIViewController {
     func deleteFromTable(indexPath: IndexPath){
         let annotation = annotations[indexPath.row]
         
+        delegate?.annotation(deletedAnnotation: annotation)
         annotations.remove(at: indexPath.row)
         CoreDataManager.shared.deleteCDAnnotation(cdAnnotation: annotation)
         

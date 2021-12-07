@@ -9,7 +9,7 @@ import Foundation
 
 protocol DroppedPinDelegate{
     func droppedPinCanClose()
-    func droppedPin(canDeleteAt indexPath: IndexPath)
+    func droppedPin(canDeleteAnnotation annotation: CDAnnotation , at indexPath: IndexPath)
     func droppedPin(addedAnnotation annotation: CDAnnotation)
     func droppedPin(editedAnnotation annotation: CDAnnotation, at indexPath: IndexPath)
 }

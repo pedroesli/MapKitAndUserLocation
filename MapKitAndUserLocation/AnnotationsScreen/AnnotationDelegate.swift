@@ -9,4 +9,5 @@ import Foundation
 
 protocol AnnotationDelegate{
     func annotation(pressedAnnotation annotation: CDAnnotation, at indexPath: IndexPath)
+    func annotation(deletedAnnotation annotation: CDAnnotation)
 }

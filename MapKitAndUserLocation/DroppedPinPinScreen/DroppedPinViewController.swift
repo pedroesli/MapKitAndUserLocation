@@ -360,9 +360,12 @@ extension DroppedPinViewController: UITableViewDelegate {
             delegate?.droppedPinCanClose()
             delegate?.droppedPin(editedAnnotation: annotation, at: index)
         case .delete:
-            guard let index = self.indexPath else { return }
+            guard let annotation = self.annotation,
+                  let index = self.indexPath
+            else { return }
+            
             delegate?.droppedPinCanClose()
-            delegate?.droppedPin(canDeleteAt: index)
+            delegate?.droppedPin(canDeleteAnnotation: annotation , at: index)
             break
         case .cancel:
             closeButtonPressed()

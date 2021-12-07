@@ -65,6 +65,14 @@ class MapViewController: UIViewController {
         
         droppedPinFloatingPanel.addPanel(toParent: self)
         droppedPinFloatingPanel.move(to: .hidden, animated: false, completion: nil)
+        
+        let cdAnnotations = CoreDataManager.shared.fetchAllCDAnnotations()
+        for cdAnnotation in cdAnnotations {
+            let point = MKPointAnnotation()
+            point.coordinate = CLLocationCoordinate2D(latitude: cdAnnotation.latitude, longitude: cdAnnotation.longitude)
+            point.title = cdAnnotation.title
+            mapView.addAnnotation(point)
+        }
     }
     
     func setupMap(){
@@ -117,6 +125,21 @@ class MapViewController: UIViewController {
         }
     }
     
+    func getPinFromMapPinList(annotation: CDAnnotation) -> MKAnnotation?{
+        return mapView.annotations.first { $0.coordinate.latitude == annotation.latitude && $0.coordinate.longitude == annotation.longitude }
+    }
+    
+    func addPinToMapPinList(annotation: CDAnnotation){
+        if let lastSelectedPin = lastSelectedPin {
+            mapView.removeAnnotation(lastSelectedPin)
+        }
+        
+        let pin = MKPointAnnotation()
+        pin.coordinate = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
+        pin.title = annotation.title
+        mapView.addAnnotation(pin)
+    }
+    
     @objc func didLongPress(longGesture: UILongPressGestureRecognizer){
         longGesture.isEnabled = false
         selectionGenerator.impactOccurred()
@@ -141,16 +164,26 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: DroppedPinDelegate {
-    func droppedPin(canDeleteAt indexPath: IndexPath) {
+    func droppedPin(canDeleteAnnotation annotation: CDAnnotation , at indexPath: IndexPath) {
+        if let pin = getPinFromMapPinList(annotation: annotation) {
+            mapView.removeAnnotation(pin)
+        }
         annotationsVC.deleteFromTable(indexPath: indexPath)
     }
     
     func droppedPin(editedAnnotation annotation: CDAnnotation, at indexPath: IndexPath) {
+        if let pin = getPinFromMapPinList(annotation: annotation) {
+            mapView.removeAnnotation(pin)
+            addPinToMapPinList(annotation: annotation)
+        }
+        
         annotationsVC.editAnnotationAtTable(annotation: annotation, indexPath: indexPath)
     }
     
     
     func droppedPin(addedAnnotation annotation: CDAnnotation) {
+        addPinToMapPinList(annotation: annotation)
+        
         annotationsVC.insertIntoTable(annotation: annotation)
     }
     
@@ -164,18 +197,18 @@ extension MapViewController: DroppedPinDelegate {
 extension MapViewController: AnnotationDelegate {
     func annotation(pressedAnnotation annotation: CDAnnotation, at indexPath: IndexPath) {
         let pinLocation = CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude)
+        mapView.setRegion(MKCoordinateRegion(center: pinLocation, latitudinalMeters: 800, longitudinalMeters: 800), animated: true)
         showPinFloatingPanel(pinLocationCoordinate: pinLocation, cdAnnotation: annotation, indexPath: indexPath)
+    }
+    
+    func annotation(deletedAnnotation annotation: CDAnnotation) {
+        if let pin = getPinFromMapPinList(annotation: annotation) {
+            mapView.removeAnnotation(pin)
+        }
     }
 }
 
 extension MapViewController: CLLocationManagerDelegate{
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.last else { return }
-//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, latitudinalMeters: 1000, longitudinalMeters: 1000)
-//        mapView.setRegion(region, animated: true)
-    }
-    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus{
         case .notDetermined:
