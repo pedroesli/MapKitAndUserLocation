@@ -72,7 +72,7 @@ class DroppedPinViewController: UIViewController {
         return view
     }()
     
-    var addressDetailLabel = PEDetailLabel(titleText: "Address", bodyText: "Chácara 325\nTaguatinga\nBrasília - DF\n72444\nBrasil")
+    var addressDetailLabel = PEDetailLabel(titleText: "Address", bodyText: "")
     
     var lineView: UIView = {
         let view = UIView()
@@ -81,7 +81,7 @@ class DroppedPinViewController: UIViewController {
         return view
     }()
     
-    var coordinatesDetailLabel = PEDetailLabel(titleText: "Coordinates", bodyText: "15,40054° S, 48,04333° O")
+    var coordinatesDetailLabel = PEDetailLabel(titleText: "Coordinates", bodyText: "")
     
     var pinInputContentView: UIView = {
         let view = UIView()

@@ -11,7 +11,7 @@ struct ActionContent{
     
     enum ContentType: String {
         case add = "Add to Annotation List"
-        case save = "Save"
+        case save = "Save Modifications"
         case delete = "Delete"
         case cancel = "Cancel"
     }
