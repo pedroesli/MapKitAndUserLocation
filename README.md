@@ -2,7 +2,7 @@
 
 App that stores the pins you've selected on the map and puts them in a list.
 
-<img src="/preview.gif" width="30%"> <img src="/preview-pic1.png" width="30%"> <img src="/preview-pic2.png" width="30%">
+<img src="/preview.gif" width="305" height="658"> ![](/preview-pic1.png) ![](/preview-pic2.png) 
 
 iOS Deployment Target: **15.0**
 
